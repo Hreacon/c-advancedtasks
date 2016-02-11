@@ -9,22 +9,39 @@ namespace ToDoList
     public HomeModule()
     {
       Get["/"] = _ => {
-        return View["add_new_task.cshtml"];
+        return View["viewCategories.cshtml", Category.GetAll()];
       };
-      Get["/view_all_tasks"] = _ => {
-        List<string> allTasks = Task.GetAll();
-        return View["view-all-tasks.cshtml", allTasks];
+
+      Get["/category/{ID}"] = parameters =>  {
+
+        return View ["viewCategory.cshtml", Category.FindById(parameters.ID)];
       };
-      Post["/tasks_cleared"]  = _ => {
-        Task.ClearAll();
-        return View["tasks_cleared.cshtml"];
+
+      Post["/addCategory"] = _ => {
+        string name = Request.Form["name"];
+        Category newCategory = new Category(name);
+        return View["viewCategories.cshtml", Category.GetAll()];
       };
-      Post["/task_added"] = _ => {
-        Task newTask = new Task (Request.Form["new-task"]);
-        newTask.Save();
-        List<string> allTasks = Task.GetAll();
-        return View["view-all-tasks.cshtml", allTasks];
+
+      Post["/category/{ID}/addTask"] = parameters => {
+        string description = Request.Form["description"];
+        Task createdTask = new Task(description);
+        Category correspondingCategory = Category.FindById(parameters.id);
+        correspondingCategory.StoreTask(createdTask);
+        return View ["viewCategory.cshtml", correspondingCategory];
       };
+      Get["/category/{ID}/deleteTask"] = parameters => {
+        
+      }
+
     }
   }
 }
+
+// views
+// add category, view categories
+// detail view for each category, with the ability to add tasks to the category
+
+// functionality
+// delete tasks that have been completed
+// delete categories that have been completed

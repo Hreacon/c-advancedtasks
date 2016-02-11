@@ -1,0 +1,16 @@
+
+<h1>@Model.GetName()</h1>
+
+<ul>
+@foreach(var task in Model.GetTasks())
+{
+  <li>@task.GetDescription()</li>
+}
+</ul>
+
+<form action="/category/@Model.GetId()/addTask" method="post">
+  <label for="description">Task:</label><input type="text" name="description" value="" autofocus>
+  <input type="submit" name="submit" value="Add Task">
+</form>
+
+<a href="/">home</a>

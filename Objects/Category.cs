@@ -17,7 +17,7 @@ namespace Todo.Objects
       _tasks = new List<Task>(){};
     }
 
-    public /*Not Static*/ void StoreTasks(Task newTask)
+    public /*Not Static*/ void StoreTask(Task newTask)
     {
       _tasks.Add(newTask);
     }
@@ -44,7 +44,7 @@ namespace Todo.Objects
 
     public static Category FindById(int ID)
     {
-      Category realCategory = new Category("Error");
+      Category realCategory = null;
       foreach (Category item in _categories)
       {
         if (item.GetId() == ID)

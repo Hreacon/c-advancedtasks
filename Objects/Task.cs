@@ -5,10 +5,14 @@ namespace Todo.Objects
   public class Task
   {
     private string _description;
-    private static List<string> _instances = new List<string>{};
+    private int _id;
+    private static int count;
+//    private static List<string> _instances = new List<string>{};
 
     public Task (string description)
     {
+      _id=count;
+      count++;
       _description = description;
     }
     public string GetDescription()
@@ -23,6 +27,8 @@ namespace Todo.Objects
     {
       return _instances;
     }
+
+
     public void Save()
     {
       _instances.Add(_description);
