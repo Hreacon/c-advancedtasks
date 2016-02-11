@@ -22,6 +22,11 @@ namespace Todo.Objects
       _tasks.Add(newTask);
     }
 
+    public void SetName(string newName)
+    {
+      _name = newName;
+    }
+
     public string GetName()
     {
       return _name;
@@ -35,6 +40,18 @@ namespace Todo.Objects
     public int GetId()
     {
       return _id;
+    }
+
+    public void DeleteTaskById(int id)
+    {
+      Task removeTask = null;
+      foreach(Task task in _tasks)
+      {
+        if(task.GetId() == id)
+          removeTask = task;
+      }
+      _tasks.Remove(removeTask);
+      // removeTask.SetDescription("This has been changed");
     }
 
     public static List<Category> GetAll()
@@ -55,5 +72,9 @@ namespace Todo.Objects
       return realCategory;
     }
 
+    public static void RemoveCategoryById(int ID)
+    {
+      _categories.Remove(Category.FindById(ID));
+    }
   }
 }

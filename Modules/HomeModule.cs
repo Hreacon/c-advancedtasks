@@ -12,15 +12,42 @@ namespace ToDoList
         return View["viewCategories.cshtml", Category.GetAll()];
       };
 
+      Get["/category/{id}/edit"] = parameters => {
+        Category editedCategory = Category.FindById(parameters.id);
+        return View ["editCategory.cshtml", editedCategory];
+      };
+
       Get["/category/{ID}"] = parameters =>  {
 
         return View ["viewCategory.cshtml", Category.FindById(parameters.ID)];
+      };
+
+      Get["/category/{ID}/deleteTask/{tID}"] = parameters => {
+        // get the category
+        Category currentCategory = Category.FindById(parameters.id);
+        //find the task
+        currentCategory.DeleteTaskById(parameters.tID);
+        // and delete the task
+        return View["viewCategory.cshtml", currentCategory];
+      };
+
+      Get["/category/{id}/delete"] = parameters => {
+        Category.RemoveCategoryById(parameters.id);
+        return View["viewCategories.cshtml", Category.GetAll()];
       };
 
       Post["/addCategory"] = _ => {
         string name = Request.Form["name"];
         Category newCategory = new Category(name);
         return View["viewCategories.cshtml", Category.GetAll()];
+      };
+
+      Post["/updateCategory"] = _ => {
+        string name = Request.Form["name"];
+        int id = Request.Form["categoryID"];
+        Category categoryToUpdate = Category.FindById(id);
+        categoryToUpdate.SetName(name);
+        return View["viewCategory.cshtml", categoryToUpdate];
       };
 
       Post["/category/{ID}/addTask"] = parameters => {
@@ -30,9 +57,6 @@ namespace ToDoList
         correspondingCategory.StoreTask(createdTask);
         return View ["viewCategory.cshtml", correspondingCategory];
       };
-      Get["/category/{ID}/deleteTask"] = parameters => {
-        
-      }
 
     }
   }

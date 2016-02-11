@@ -4,7 +4,7 @@
 <ul>
 @foreach(var task in Model.GetTasks())
 {
-  <li>@task.GetDescription()</li>
+  <li>@task.GetDescription() <a href="/category/@Model.GetId()/deleteTask/@task.GetId()">Delete Task</a></li>
 }
 </ul>
 
@@ -12,5 +12,8 @@
   <label for="description">Task:</label><input type="text" name="description" value="" autofocus>
   <input type="submit" name="submit" value="Add Task">
 </form>
+
+<a href="/category/@Model.GetId()/delete">Delete Category</a>
+<a href="/category/@Model.GetId()/edit">Edit Category</a>
 
 <a href="/">home</a>

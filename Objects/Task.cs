@@ -7,7 +7,7 @@ namespace Todo.Objects
     private string _description;
     private int _id;
     private static int count;
-//    private static List<string> _instances = new List<string>{};
+   private static List<string> _instances = new List<string>{};
 
     public Task (string description)
     {
@@ -18,6 +18,9 @@ namespace Todo.Objects
     public string GetDescription()
     {
       return _description;
+    }
+    public int GetId() {
+      return _id;
     }
     public void SetDescription(string newDescription)
     {

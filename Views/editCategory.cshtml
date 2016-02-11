@@ -1,0 +1,14 @@
+<h1>Existing Category: @Model.GetName()</h1>
+
+@foreach(var task in Model.GetTasks())
+{
+  <li>@task.GetDescription() </li>
+}
+</ul>
+
+<form action="/updateCategory" method="POST">
+<label for="name">Enter Category Name</label>
+<input type="text" name="name" value="@Model.GetName()" autofocus>
+<input type="Submit" name="submit" value="Update Category">
+<input type="hidden" value="@Model.GetId()" name="categoryID">
+</form>
